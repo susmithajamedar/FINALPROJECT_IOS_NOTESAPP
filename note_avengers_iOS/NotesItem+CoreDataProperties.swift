@@ -12,7 +12,7 @@ import CoreData
 
 extension NotesItem {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<NotesItem> {
+    @nonobjc public class func fetchCoreRequest() -> NSFetchRequest<NotesItem> {
         return NSFetchRequest<NotesItem>(entityName: "NotesItem")
     }
 

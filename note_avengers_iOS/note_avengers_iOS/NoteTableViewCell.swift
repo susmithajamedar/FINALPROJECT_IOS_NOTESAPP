@@ -19,6 +19,45 @@ class NoteTableViewCell: UITableViewCell {
     @IBOutlet weak var noteImageView: UIImageView!
     @IBOutlet weak var locationIcon: UIImageView!
     @IBOutlet weak var noteBodyLabel: UILabel!
+    var note: NotesItem?{
+        didSet{
+        
+            self.titleLabel.text = note?.title ?? ""
+            self.subjectLabel.text = note?.subject ?? ""
+            self.noteBodyLabel.text = note?.body
+            if let datetimestamp = self.note?.time{
+                let date = Date(timeIntervalSince1970: TimeInterval(datetimestamp))
+                self.timeLabel.text = self.timeAgoSinceDate(date.toGlobalTime())
+                
+            }
+             
+            
+            if let _ = note?.audio{
+                self.musicNoteIcon.isHidden = false
+            }else{
+                self.musicNoteIcon.isHidden = true
+            }
+            
+            if let address = note?.address{
+                if address.isEmpty{
+                    self.locationIcon.isHidden = false
+                }else{
+                    self.locationIcon.isHidden = false
+                }
+               
+            }else{
+                self.locationIcon.isHidden = true
+            }
+            
+            if let photo = note?.photo{
+                self.noteImageView.isHidden = false
+                self.noteImageView.image = UIImage(data: photo)
+            }else{
+                self.noteImageView.image = nil
+                self.noteImageView.isHidden = true
+            }
+        }
+    }
     
    
     override func awakeFromNib() {
@@ -34,11 +73,7 @@ class NoteTableViewCell: UITableViewCell {
         self.noteImageView.layer.cornerRadius = 5
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+   
     
     func timeAgoSinceDate(_ date:Date, numericDates:Bool = false) -> String {
         let calendar = Calendar.current
@@ -103,6 +138,49 @@ class NoteTableViewCell: UITableViewCell {
         }
         
     }
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
     
    
+}
+
+extension Date {
+    func localDate() -> Date {
+        let nowUTC = Date()
+        let timeZoneOffset = Double(TimeZone.current.secondsFromGMT(for: nowUTC))
+        guard let localDate = Calendar.current.date(byAdding: .second, value: Int(timeZoneOffset), to: nowUTC) else {return Date()}
+
+        return localDate
+    }
+    
+    func dateWithOutTime() -> Date {
+        
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        let startOfDate = calendar.startOfDay(for: self)
+        print(startOfDate)
+        return startOfDate
+    }
+}
+
+
+extension Date {
+
+    // Convert local time to UTC (or GMT)
+    func toGlobalTime() -> Date {
+        let timezone = TimeZone.current
+        let seconds = -TimeInterval(timezone.secondsFromGMT(for: self))
+        return Date(timeInterval: seconds, since: self)
+    }
+
+    // Convert UTC (or GMT) to local time
+    func toLocalTime() -> Date {
+        let timezone = TimeZone.current
+        let seconds = TimeInterval(timezone.secondsFromGMT(for: self))
+        return Date(timeInterval: seconds, since: self)
+    }
+
 }

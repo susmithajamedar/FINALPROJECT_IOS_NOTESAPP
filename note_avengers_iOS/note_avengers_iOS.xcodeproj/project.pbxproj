@@ -16,6 +16,7 @@
 		D08972CA265F4D4100530A90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08972C8265F4D4100530A90 /* LaunchScreen.storyboard */; };
 		D0AF92B5265F51AF0097EFB3 /* NotesItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF92B3265F51AF0097EFB3 /* NotesItem+CoreDataClass.swift */; };
 		D0AF92B6265F51AF0097EFB3 /* NotesItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF92B4265F51AF0097EFB3 /* NotesItem+CoreDataProperties.swift */; };
+		D0AF92B8265F52900097EFB3 /* NotesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF92B7265F52900097EFB3 /* NotesListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		D08972CB265F4D4100530A90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0AF92B3265F51AF0097EFB3 /* NotesItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D0AF92B4265F51AF0097EFB3 /* NotesItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D0AF92B7265F52900097EFB3 /* NotesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				D08972C8265F4D4100530A90 /* LaunchScreen.storyboard */,
 				D08972CB265F4D4100530A90 /* Info.plist */,
 				D08972C3265F4D4100530A90 /* note_avengers_iOS.xcdatamodeld */,
+				D0AF92B7265F52900097EFB3 /* NotesListViewController.swift */,
 			);
 			path = note_avengers_iOS;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 				D0AF92B5265F51AF0097EFB3 /* NotesItem+CoreDataClass.swift in Sources */,
 				D0AF92B6265F51AF0097EFB3 /* NotesItem+CoreDataProperties.swift in Sources */,
 				D08972BD265F4D4100530A90 /* SceneDelegate.swift in Sources */,
+				D0AF92B8265F52900097EFB3 /* NotesListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

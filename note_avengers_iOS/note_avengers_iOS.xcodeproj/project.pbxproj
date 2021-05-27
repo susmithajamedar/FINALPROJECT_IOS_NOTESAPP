@@ -14,6 +14,8 @@
 		D08972C5265F4D4100530A90 /* note_avengers_iOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D08972C3265F4D4100530A90 /* note_avengers_iOS.xcdatamodeld */; };
 		D08972C7265F4D4100530A90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D08972C6265F4D4100530A90 /* Assets.xcassets */; };
 		D08972CA265F4D4100530A90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08972C8265F4D4100530A90 /* LaunchScreen.storyboard */; };
+		D0AF92B5265F51AF0097EFB3 /* NotesItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF92B3265F51AF0097EFB3 /* NotesItem+CoreDataClass.swift */; };
+		D0AF92B6265F51AF0097EFB3 /* NotesItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF92B4265F51AF0097EFB3 /* NotesItem+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		D08972C6265F4D4100530A90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D08972C9265F4D4100530A90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D08972CB265F4D4100530A90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0AF92B3265F51AF0097EFB3 /* NotesItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesItem+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D0AF92B4265F51AF0097EFB3 /* NotesItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +46,8 @@
 		D08972AE265F4D4100530A90 = {
 			isa = PBXGroup;
 			children = (
+				D0AF92B3265F51AF0097EFB3 /* NotesItem+CoreDataClass.swift */,
+				D0AF92B4265F51AF0097EFB3 /* NotesItem+CoreDataProperties.swift */,
 				D08972B9265F4D4100530A90 /* note_avengers_iOS */,
 				D08972B8265F4D4100530A90 /* Products */,
 			);
@@ -143,6 +149,8 @@
 				D08972C5265F4D4100530A90 /* note_avengers_iOS.xcdatamodeld in Sources */,
 				D08972BF265F4D4100530A90 /* ViewController.swift in Sources */,
 				D08972BB265F4D4100530A90 /* AppDelegate.swift in Sources */,
+				D0AF92B5265F51AF0097EFB3 /* NotesItem+CoreDataClass.swift in Sources */,
+				D0AF92B6265F51AF0097EFB3 /* NotesItem+CoreDataProperties.swift in Sources */,
 				D08972BD265F4D4100530A90 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

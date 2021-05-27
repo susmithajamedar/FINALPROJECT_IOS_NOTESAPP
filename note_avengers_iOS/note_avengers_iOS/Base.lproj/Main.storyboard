@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sGE-Vc-bJ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8Sy-HX-saa">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -212,6 +212,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xxG-fj-9Av" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2018.840579710145" y="77.678571428571431"/>
+        </scene>
+        <!--Location Picker View Controller-->
+        <scene sceneID="8tT-lp-jRf">
+            <objects>
+                <viewController storyboardIdentifier="LocationPickerViewController" id="8Sy-HX-saa" customClass="LocationPickerViewController" customModule="Note_AvengersGroup_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tdl-Bl-Ymr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="44b-Xz-HbX">
+                                <rect key="frame" x="8" y="88" width="414" height="808"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9e7-DN-WRY">
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="xhL-NS-efo"/>
+                                </constraints>
+                                <state key="normal" title="Use this location"/>
+                                <connections>
+                                    <action selector="saveLocationTapped:" destination="8Sy-HX-saa" eventType="touchUpInside" id="U9p-NK-8Wv"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nck-wm-fB5">
+                                <rect key="frame" x="15" y="59" width="384" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="AVr-Ke-6uu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="44b-Xz-HbX" firstAttribute="leading" secondItem="tdl-Bl-Ymr" secondAttribute="leading" id="18H-Tx-vTX"/>
+                            <constraint firstItem="Nck-wm-fB5" firstAttribute="leading" secondItem="AVr-Ke-6uu" secondAttribute="leading" constant="15" id="BG8-sS-Xsx"/>
+                            <constraint firstAttribute="bottom" secondItem="44b-Xz-HbX" secondAttribute="bottom" id="CB4-Ut-RIR"/>
+                            <constraint firstItem="9e7-DN-WRY" firstAttribute="leading" secondItem="AVr-Ke-6uu" secondAttribute="leading" id="E2O-9X-ymi"/>
+                            <constraint firstItem="AVr-Ke-6uu" firstAttribute="bottom" secondItem="9e7-DN-WRY" secondAttribute="bottom" id="I6W-C6-z0F"/>
+                            <constraint firstItem="AVr-Ke-6uu" firstAttribute="trailing" secondItem="Nck-wm-fB5" secondAttribute="trailing" constant="15" id="TeJ-YS-tZG"/>
+                            <constraint firstItem="AVr-Ke-6uu" firstAttribute="trailing" secondItem="9e7-DN-WRY" secondAttribute="trailing" id="eWm-G9-Lnj"/>
+                            <constraint firstItem="Nck-wm-fB5" firstAttribute="top" secondItem="AVr-Ke-6uu" secondAttribute="top" constant="15" id="gg5-WC-GSH"/>
+                            <constraint firstItem="44b-Xz-HbX" firstAttribute="top" secondItem="AVr-Ke-6uu" secondAttribute="top" id="gsL-gR-xNm"/>
+                            <constraint firstAttribute="trailing" secondItem="44b-Xz-HbX" secondAttribute="trailing" id="nN9-h7-nZq"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="wQp-qy-Mc5"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="Nck-wm-fB5" id="VH4-8A-4JZ"/>
+                        <outlet property="mapView" destination="44b-Xz-HbX" id="tHC-vz-o7s"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nbX-Ca-7WF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3887" y="78"/>
         </scene>
     </scenes>
     <resources>

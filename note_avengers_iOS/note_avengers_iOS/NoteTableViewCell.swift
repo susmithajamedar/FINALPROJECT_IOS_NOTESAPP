@@ -23,6 +23,14 @@ class NoteTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.containerView.layer.cornerRadius = 10
+        self.containerView.clipsToBounds = true
+        self.containerView.layer.masksToBounds = false
+        self.containerView.layer.shadowRadius = 1.5
+        self.containerView.layer.shadowOpacity = 0.4
+        self.containerView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.containerView.layer.shadowColor = UIColor.lightGray.cgColor
+        self.noteImageView.layer.cornerRadius = 5
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

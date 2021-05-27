@@ -9,6 +9,7 @@ import UIKit
 
 class NoteDetailViewController: UIViewController {
 
+    var note : NotesItem?
     override func viewDidLoad() {
         super.viewDidLoad()
 

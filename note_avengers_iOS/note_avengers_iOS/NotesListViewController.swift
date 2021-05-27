@@ -98,3 +98,13 @@ extension NotesListViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
+extension NotesListViewController: UISearchBarDelegate{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty{
+            self.filtredNotes = self.notes
+        }else{
+            self.filtredNotes = self.notes.filter{$0.title!.lowercased().contains(searchText.lowercased())}
+        }
+        self.notesTableView.reloadData()
+    }
+}

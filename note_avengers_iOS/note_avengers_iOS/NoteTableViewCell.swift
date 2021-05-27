@@ -8,6 +8,17 @@
 import UIKit
 
 class NoteTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var containerView: UIView!
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var subjectLabel: UILabel!
+    
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var musicNoteIcon: UIImageView!
+    @IBOutlet weak var noteImageView: UIImageView!
+    @IBOutlet weak var locationIcon: UIImageView!
+    @IBOutlet weak var noteBodyLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

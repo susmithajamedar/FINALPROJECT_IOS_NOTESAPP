@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xu7-p3-ObB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sGE-Vc-bJ4">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -11,7 +11,7 @@
         <!--Notes-->
         <scene sceneID="qxs-mx-gzg">
             <objects>
-                <viewController storyboardIdentifier="NotesListViewController" id="zE5-Kh-WLb" customClass="NotesListViewController" customModule="Note_AvengersGroup_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NotesListViewController" id="zE5-Kh-WLb" customClass="NotesListViewController" customModule="note_avengers_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="inC-1T-b3T">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -33,7 +33,7 @@
                                 <rect key="frame" x="0.0" y="195" width="414" height="667"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NoteTableViewCell" rowHeight="153" id="zIE-2q-QtA" customClass="NoteTableViewCell" customModule="Note_AvengersGroup_iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NoteTableViewCell" rowHeight="153" id="zIE-2q-QtA" customClass="NoteTableViewCell" customModule="note_avengers_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="24.5" width="414" height="153"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zIE-2q-QtA" id="CWC-jw-mTU">
@@ -216,13 +216,13 @@
         <!--Location Picker View Controller-->
         <scene sceneID="8tT-lp-jRf">
             <objects>
-                <viewController storyboardIdentifier="LocationPickerViewController" id="8Sy-HX-saa" customClass="LocationPickerViewController" customModule="Note_AvengersGroup_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LocationPickerViewController" id="8Sy-HX-saa" customClass="LocationPickerViewController" customModule="note_avengers_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tdl-Bl-Ymr">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="44b-Xz-HbX">
-                                <rect key="frame" x="8" y="88" width="414" height="808"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="44b-Xz-HbX">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9e7-DN-WRY">
                                 <rect key="frame" x="0.0" y="812" width="414" height="50"/>
@@ -264,12 +264,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nbX-Ca-7WF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3887" y="78"/>
+            <point key="canvasLocation" x="4490" y="78"/>
         </scene>
-        <!--Note Detail View Controller-->
+        <!--Detail-->
         <scene sceneID="GoD-SB-vXz">
             <objects>
-                <viewController storyboardIdentifier="NoteDetailViewController" id="xu7-p3-ObB" customClass="NoteDetailViewController" customModule="Note_AvengersGroup_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NoteDetailViewController" id="xu7-p3-ObB" customClass="NoteDetailViewController" customModule="note_avengers_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="esM-nw-tdp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="1200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -374,6 +374,9 @@
                             <constraint firstItem="XhZ-fF-SlO" firstAttribute="leading" secondItem="DtX-2w-gzb" secondAttribute="leading" id="zmZ-VZ-A2t"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Detail" id="OVg-xp-3NV">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="gGm-Ax-Egd"/>
+                    </navigationItem>
                     <size key="freeformSize" width="414" height="1200"/>
                     <connections>
                         <outlet property="locationButton" destination="Fwu-CA-UJ4" id="fws-QW-ReA"/>
@@ -383,8 +386,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Lv-FG-f5b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <navigationItem title="Detail" id="nr0-pk-nTE">
+                    <barButtonItem key="rightBarButtonItem" title="Save" id="8Wn-aU-2Hz"/>
+                </navigationItem>
             </objects>
-            <point key="canvasLocation" x="1213" y="-43"/>
+            <point key="canvasLocation" x="3735" y="179"/>
         </scene>
     </scenes>
     <resources>

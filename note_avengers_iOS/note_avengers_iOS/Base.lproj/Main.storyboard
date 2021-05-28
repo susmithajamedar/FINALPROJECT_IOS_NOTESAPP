@@ -266,7 +266,7 @@
             </objects>
             <point key="canvasLocation" x="3887" y="78"/>
         </scene>
-        <!--Detail-->
+        <!--Note Detail View Controller-->
         <scene sceneID="GoD-SB-vXz">
             <objects>
                 <viewController storyboardIdentifier="NoteDetailViewController" id="xu7-p3-ObB" customClass="NoteDetailViewController" customModule="Note_AvengersGroup_iOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -374,18 +374,10 @@
                             <constraint firstItem="XhZ-fF-SlO" firstAttribute="leading" secondItem="DtX-2w-gzb" secondAttribute="leading" id="zmZ-VZ-A2t"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Detail" id="G9K-KS-Q2n">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="4cp-NX-0yZ">
-                            <connections>
-                                <action selector="saveButtonTapped:" destination="xu7-p3-ObB" id="zS8-FI-MVs"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <size key="freeformSize" width="414" height="1200"/>
                     <connections>
                         <outlet property="locationButton" destination="Fwu-CA-UJ4" id="fws-QW-ReA"/>
                         <outlet property="noteBodyTextView" destination="EbK-WM-d3u" id="e7J-d5-noK"/>
-                        <outlet property="saveButton" destination="4cp-NX-0yZ" id="Bi0-xw-dT9"/>
                         <outlet property="subtitleLabel" destination="G4P-7k-TVY" id="xRR-Jh-AbW"/>
                         <outlet property="titleLabel" destination="HsE-x1-p1U" id="OLn-r7-l3C"/>
                     </connections>

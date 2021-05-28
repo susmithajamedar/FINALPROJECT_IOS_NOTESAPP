@@ -15,6 +15,11 @@ struct Location {
 var locationPicked:((Location)->())?
 
 class NoteDetailViewController: UIViewController {
+    @IBOutlet weak var titleLabel: UITextField!
+    
+    @IBOutlet weak var subtitleLabel: UITextField!
+    @IBOutlet weak var noteBodyTextView: UITextView!
+    @IBOutlet weak var locationButton: UIButton!
 
     var note : NotesItem?
     override func viewDidLoad() {

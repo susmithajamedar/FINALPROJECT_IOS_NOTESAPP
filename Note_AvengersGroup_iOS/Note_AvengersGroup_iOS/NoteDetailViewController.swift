@@ -46,7 +46,7 @@ class NoteDetailViewController: UIViewController {
     var imagePicker = UIImagePickerController()
     var location: Location?
     
-    var note : NotesItem?
+    var note : NoteItem?
     var id = String()
     
     var isUpdate = Bool()
@@ -250,7 +250,7 @@ class NoteDetailViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ button: UIBarButtonItem) {
        
-        let noteItem = NotesItem(context: self.context)
+        let noteItem = NoteItem(context: self.context)
         if let title = self.titleLabel.text{
             let finalTitle = title.trimmingCharacters(in: .whitespacesAndNewlines)
             if !finalTitle.isEmpty{

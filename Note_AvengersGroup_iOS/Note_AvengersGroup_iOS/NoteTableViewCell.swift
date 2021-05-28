@@ -20,7 +20,7 @@ class NoteTableViewCell: UITableViewCell{
     @IBOutlet weak var locationIcon: UIImageView!
     @IBOutlet weak var noteBodyLabel: UILabel!
     
-    var note: NotesItem?{
+    var note: NoteItem?{
         didSet{
         
             self.titleLabel.text = note?.title ?? ""
@@ -186,4 +186,3 @@ extension Date {
     }
 
 }
-

@@ -18,8 +18,8 @@ class NotesListViewController: UIViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    var notes = [NotesItem]()
-    var filtredNotes = [NotesItem]()
+    var notes = [NoteItem]()
+    var filtredNotes = [NoteItem]()
   
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class NotesListViewController: UIViewController {
     
     func getAllItems(){
         do{
-            self.notes = try context.fetch(NotesItem.fetchCoreRequest())
+            self.notes = try context.fetch(NoteItem.fetchCoreRequest())
             self.notes = self.notes.sorted(by: {$0.time > $1.time})
             self.filtredNotes = self.notes
             self.notesTableView.reloadData()
@@ -42,10 +42,20 @@ class NotesListViewController: UIViewController {
             print(error.localizedDescription)
         }
     }
+    
+   
+    
+    
+    
+    
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         self.sortSegment.selectedSegmentIndex = 1
     }
-
+    
+    
+    
     @IBAction func addNote(_ sender: UIBarButtonItem) {
         let vc = storyboard?.instantiateViewController(identifier: "NoteDetailViewController") as! NoteDetailViewController
         
@@ -62,6 +72,11 @@ class NotesListViewController: UIViewController {
             self.notesTableView.reloadData()
         }
     }
+    
+    
+    
+    
+    
     
 }
 
@@ -118,3 +133,5 @@ extension NotesListViewController: UISearchBarDelegate{
         self.notesTableView.reloadData()
     }
 }
+
+

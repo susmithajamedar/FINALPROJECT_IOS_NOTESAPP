@@ -1,8 +1,6 @@
 //
-//  AppDelegate.swift
-//  note_avengers_iOS
-//
-//  Created by Vijay Kumar Sevakula on 2021-05-26.
+// AppDelegate.swift
+//  Note_AvengersGroup_iOS
 //
 
 import UIKit
@@ -41,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentContainer(name: "note_avengers_iOS")
+        let container = NSPersistentContainer(name: "Note_AvengersGroup_iOS")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.

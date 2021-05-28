@@ -9,19 +9,26 @@ import CoreData
 
 
 class NotesListViewController: UIViewController {
+    
     @IBOutlet weak var notesTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var sortSegment: UISegmentedControl!
     
-    var notes = [NotesItem]()
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    var notes = [NotesItem]()
     var filtredNotes = [NotesItem]()
+  
     override func viewDidLoad() {
         super.viewDidLoad()
        
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.getAllItems()
     }
     
     func getAllItems(){
@@ -35,6 +42,10 @@ class NotesListViewController: UIViewController {
             print(error.localizedDescription)
         }
     }
+    override func viewDidAppear(_ animated: Bool) {
+        self.sortSegment.selectedSegmentIndex = 1
+    }
+
     @IBAction func addNote(_ sender: UIBarButtonItem) {
         let vc = storyboard?.instantiateViewController(identifier: "NoteDetailViewController") as! NoteDetailViewController
         
@@ -53,8 +64,6 @@ class NotesListViewController: UIViewController {
     }
     
 }
-
-
 
 extension NotesListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -97,6 +106,7 @@ extension NotesListViewController: UITableViewDelegate, UITableViewDataSource {
 
     
 }
+
 
 extension NotesListViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

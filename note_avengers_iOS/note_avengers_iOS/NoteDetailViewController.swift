@@ -31,12 +31,42 @@ class NoteDetailViewController: UIViewController {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     var note : NotesItem?
+    var filename = ""
+    var imagePicker = UIImagePickerController()
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-  
+    @IBAction func addPhotosButtonTapped(_ button: UIButton) {
+        
+        
+        let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+            self.openCamera()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+            self.openGallary()
+        }))
+        
+        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        
+        /*If you want work actionsheet on ipad
+         then you have to use popoverPresentationController to present the actionsheet,
+         otherwise app will crash on iPad */
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            alert.popoverPresentationController?.sourceView = button
+            alert.popoverPresentationController?.sourceRect = button.bounds
+            alert.popoverPresentationController?.permittedArrowDirections = .up
+        default:
+            break
+        }
+        
+        self.present(alert, animated: true, completion: nil)
+        
+    }
     
 
     @IBAction func addLocationButtonTapped(_ button: UIButton) {
@@ -104,6 +134,27 @@ class NoteDetailViewController: UIViewController {
         
     }
     
+    func openCamera(){
+        if(UIImagePickerController .isSourceTypeAvailable(.camera))
+        {
+            imagePicker.sourceType = .camera
+            imagePicker.allowsEditing = true
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        else
+        {
+            let alert  = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func openGallary(){
+        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+        imagePicker.allowsEditing = true
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
     func display_alert(msg_title : String , msg_desc : String ,action_title : String){
         let ac = UIAlertController(title: msg_title, message: msg_desc, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: action_title, style: .default)
@@ -113,5 +164,42 @@ class NoteDetailViewController: UIViewController {
         })
         present(ac, animated: true)
     }
+    
+    func getDocumentsDirectory() -> URL{
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+    
+    func getFileUrl() -> URL{
+        let filePath = getDocumentsDirectory().appendingPathComponent(self.filename)
+        return filePath
+    }
 
 }
+
+
+//MARK: - UIImagePickerControllerDelegate
+extension NoteDetailViewController:  UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        /*
+         Get the image from the info dictionary.
+         If no need to edit the photo, use `UIImagePickerControllerOriginalImage`
+         instead of `UIImagePickerControllerEditedImage`
+         */
+        if let editedImage = info[UIImagePickerController.InfoKey(rawValue: UIImagePickerController.InfoKey.editedImage.rawValue)] as? UIImage{
+            self.selectedImageView.image = editedImage
+        }
+        
+        //Dismiss the UIImagePicker after selection
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.isNavigationBarHidden = false
+        self.dismiss(animated: true, completion: nil)
+    }
+}
+

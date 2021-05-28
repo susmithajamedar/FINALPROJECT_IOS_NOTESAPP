@@ -1,13 +1,14 @@
 //
-//  LocationPickerViewController.swift
-//  note_avengers_iOS
+// LocationPickerViewController.swift
+//  NotesApp
 //
-//  Created by Vijay Kumar Sevakula on 2021-05-27.
 //
 
 import UIKit
 import MapKit
 class LocationPickerViewController: UIViewController {
+    
+    
     @IBOutlet weak var mapView: MKMapView!
     let newPin = MKPointAnnotation()
     var locationManager =  CLLocationManager()
@@ -17,8 +18,10 @@ class LocationPickerViewController: UIViewController {
     var savedLocation : Location?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         determineCurrentLocation()
-        // Do any additional setup after loading the view.
+       // self.mapView.isUserInteractionEnabled = false
+        
     }
     
     func determineCurrentLocation(){
@@ -81,12 +84,18 @@ class LocationPickerViewController: UIViewController {
     }
     
     
+    @IBAction func saveLocationTapped(_ sender: UIButton) {
+        let loc = Location(fullAddress: self.addressLabel.text ?? "", location: self.currentLocation)
+        if locationPicked != nil{
+            locationPicked!(loc)
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
     
-
+    
 }
 
-
-extension  LocationPickerViewController : MKMapViewDelegate,CLLocationManagerDelegate{
+extension  LocationPickerViewController : MKMapViewDelegate, CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         mapView.removeAnnotation(newPin)
         let location = locations.last! as CLLocation
@@ -145,5 +154,4 @@ extension  LocationPickerViewController : MKMapViewDelegate,CLLocationManagerDel
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState) {
         
     }
-
 }

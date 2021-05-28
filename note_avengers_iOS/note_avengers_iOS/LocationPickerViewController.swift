@@ -115,6 +115,35 @@ extension  LocationPickerViewController : MKMapViewDelegate,CLLocationManagerDel
         mapView.addAnnotation(newPin)
     }
     
-   
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+
+        let identifier = "pinAnnotation"
+             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView
+             if (annotationView == nil) {
+                 annotationView = MKPinAnnotationView(annotation: annotation,
+                                                      reuseIdentifier: identifier)
+                 if let av = annotationView {
+                     av.pinTintColor = .red
+                     av.animatesDrop = false
+                     av.canShowCallout = false
+                     av.isDraggable = true
+                 } else {
+                    // unexpected(error: nil, "Can't create MKPinAnnotationView")
+                 }
+             } else {
+                 annotationView!.annotation = annotation
+             }
+             return annotationView
+        
+       // return pav
+    }
+    
+
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState) {
+        
+    }
 
 }

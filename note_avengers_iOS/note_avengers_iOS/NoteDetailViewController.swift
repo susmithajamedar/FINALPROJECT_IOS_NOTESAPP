@@ -1,12 +1,14 @@
 //
 //  NoteDetailViewController.swift
-//  note_avengers_iOS
+// NotesApp
 //
-//  Created by Vijay Kumar Sevakula on 2021-05-27.
 //
 
 import UIKit
 import CoreLocation
+import CoreData
+
+
 struct Location {
     var fullAddress: String?
     var location: CLLocation?
@@ -14,61 +16,230 @@ struct Location {
 }
 var locationPicked:((Location)->())?
 
+import AVFoundation
 class NoteDetailViewController: UIViewController {
+    
     @IBOutlet weak var titleLabel: UITextField!
     
     @IBOutlet weak var subtitleLabel: UITextField!
     @IBOutlet weak var noteBodyTextView: UITextView!
-    @IBOutlet weak var locationButton: UIButton!
+    
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var selectedImageView: UIImageView!
-    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var locationButton: UIButton!
     
     @IBOutlet var recordingTimeLabel: UILabel!
     @IBOutlet var record_btn_ref: UIButton!
     @IBOutlet var play_btn_ref: UIButton!
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
-    var note : NotesItem?
+    
+    
+    var audioRecorder: AVAudioRecorder!
+    var audioPlayer : AVAudioPlayer!
+    var meterTimer:Timer!
+    var isAudioRecordingGranted: Bool!
+    var isRecording = false
+    var isPlaying = false
+    
     var filename = ""
+    
     var imagePicker = UIImagePickerController()
+    var location: Location?
+    
+    var note : NotesItem?
+    var id = String()
+    
+    var isUpdate = Bool()
+    
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-    @IBAction func addPhotosButtonTapped(_ button: UIButton) {
+        self.noteBodyTextView.layer.cornerRadius = 5
+        self.noteBodyTextView.clipsToBounds = true
+        self.noteBodyTextView.layer.masksToBounds = false
+        self.noteBodyTextView.layer.shadowRadius = 1.5
+        self.noteBodyTextView.layer.shadowOpacity = 0.4
+        self.noteBodyTextView.layer.shadowOffset = CGSize(width: 0, height: 0)
         
+        self.noteBodyTextView.layer.shadowColor = UIColor.lightGray.cgColor
         
-        let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
-            self.openCamera()
-        }))
+        self.selectedImageView.layer.cornerRadius = 5
+        self.selectedImageView.clipsToBounds = true
+        self.selectedImageView.layer.masksToBounds = true
+        self.selectedImageView.layer.shadowRadius = 1.5
+        self.selectedImageView.layer.shadowOpacity = 0.4
+        self.selectedImageView.layer.shadowOffset = CGSize(width: 0, height: 0)
         
-        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
-            self.openGallary()
-        }))
+        checkRecordPermission()
+        imagePicker.delegate =  self
         
-        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
-        
-        /*If you want work actionsheet on ipad
-         then you have to use popoverPresentationController to present the actionsheet,
-         otherwise app will crash on iPad */
-        switch UIDevice.current.userInterfaceIdiom {
-        case .pad:
-            alert.popoverPresentationController?.sourceView = button
-            alert.popoverPresentationController?.sourceRect = button.bounds
-            alert.popoverPresentationController?.permittedArrowDirections = .up
-        default:
-            break
+        locationPicked = { location in
+            self.locationButton.setTitle(location.fullAddress, for: .normal)
+            self.location = location
         }
         
-        self.present(alert, animated: true, completion: nil)
+        
+        if let note = self.note{
+            self.titleLabel.text = note.title ?? ""
+            self.subtitleLabel.text = note.subject ?? ""
+            self.noteBodyTextView.text = note.body ?? ""
+            
+            self.location = Location(fullAddress: note.address, location: CLLocation(latitude: note.latitude, longitude: note.longitude))
+            let loc  = self.location?.fullAddress ?? ""
+            self.locationButton.setTitle(loc, for: .normal)
+            if let image = note.photo{
+                self.selectedImageView.image = UIImage(data: image)
+            }
+            
+            self.filename = note.audio ?? ""
+            self.id = note.id ?? ""
+            self.saveButton.title = "Update"
+            isUpdate = true
+        }else{
+            self.saveButton.title = "Save"
+            isUpdate = false
+        }
         
     }
     
-
+    override func viewWillDisappear(_ animated: Bool) {
+        self.audioPlayer?.stop()
+    }
+    
+    
+    
+    func checkRecordPermission(){
+        switch AVAudioSession.sharedInstance().recordPermission {
+        case AVAudioSession.RecordPermission.granted:
+            isAudioRecordingGranted = true
+            break
+        case AVAudioSession.RecordPermission.denied:
+            isAudioRecordingGranted = false
+            break
+        case AVAudioSession.RecordPermission.undetermined:
+            AVAudioSession.sharedInstance().requestRecordPermission({ (allowed) in
+                if allowed {
+                    self.isAudioRecordingGranted = true
+                } else {
+                    self.isAudioRecordingGranted = false
+                }
+            })
+            break
+        default:
+            break
+        }
+    }
+    
+    func getDocumentsDirectory() -> URL{
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+    
+    func getFileUrl() -> URL{
+        let filePath = getDocumentsDirectory().appendingPathComponent(self.filename)
+        return filePath
+    }
+    
+    func setup_recorder(){
+        if isAudioRecordingGranted{
+            let session = AVAudioSession.sharedInstance()
+            do{
+                try session.setCategory(AVAudioSession.Category.playAndRecord, options: .defaultToSpeaker)
+                try session.setActive(true)
+                let settings = [
+                    AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                    AVSampleRateKey: 44100,
+                    AVNumberOfChannelsKey: 2,
+                    AVEncoderAudioQualityKey:AVAudioQuality.high.rawValue
+                ]
+                audioRecorder = try AVAudioRecorder(url: getFileUrl(), settings: settings)
+                audioRecorder.delegate = self
+                audioRecorder.isMeteringEnabled = true
+                audioRecorder.prepareToRecord()
+            }
+            catch let error {
+                print(error.localizedDescription)
+                display_alert(msg_title: "Error", msg_desc: error.localizedDescription, action_title: "OK")
+            }
+        }else{
+            display_alert(msg_title: "Error", msg_desc: "Don't have access to use your microphone.", action_title: "OK")
+        }
+    }
+    
+    
+    @objc func updateAudioMeter(timer: Timer){
+        if audioRecorder.isRecording{
+            let hr = Int((audioRecorder.currentTime / 60) / 60)
+            let min = Int(audioRecorder.currentTime / 60)
+            let sec = Int(audioRecorder.currentTime.truncatingRemainder(dividingBy: 60))
+            let totalTimeString = String(format: "%02d:%02d:%02d", hr, min, sec)
+            recordingTimeLabel.text = totalTimeString
+            audioRecorder.updateMeters()
+        }
+    }
+    
+    func finishAudioRecording(success: Bool){
+        if success{
+            audioRecorder.stop()
+            audioRecorder = nil
+            meterTimer.invalidate()
+            print("recorded successfully.")
+        }else{
+            print("Recording failed")
+            display_alert(msg_title: "Error", msg_desc: "Recording failed.", action_title: "OK")
+        }
+    }
+    
+    
+    func prepare_play(){
+        do
+        {
+            audioPlayer = try AVAudioPlayer(contentsOf: getFileUrl())
+            audioPlayer.delegate = self
+            audioPlayer.prepareToPlay()
+        }catch let error {
+           
+            display_alert(msg_title: "Error", msg_desc: error.localizedDescription, action_title: "OK")
+        }
+    }
+    
+    @IBAction func play_recording(_ sender: Any)
+    {
+       
+        if(isPlaying){
+            audioPlayer?.stop()
+            record_btn_ref.isEnabled = true
+            play_btn_ref.setTitle(" Play", for: .normal)
+            isPlaying = false
+        }else{
+            if FileManager.default.fileExists(atPath: getFileUrl().path){
+                record_btn_ref.isEnabled = false
+                play_btn_ref.setTitle(" Pause", for: .normal)
+                prepare_play()
+                audioPlayer?.play()
+                isPlaying = true
+            }else{
+                display_alert(msg_title: "Error", msg_desc: "Audio file is missing.", action_title: "OK")
+            }
+        }
+    }
+    
+    func display_alert(msg_title : String , msg_desc : String ,action_title : String){
+        let ac = UIAlertController(title: msg_title, message: msg_desc, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: action_title, style: .default)
+        {
+            (result : UIAlertAction) -> Void in
+           // _ = self.navigationController?.popViewController(animated: true)
+        })
+        present(ac, animated: true)
+    }
+    
+    
+    
     @IBAction func addLocationButtonTapped(_ button: UIButton) {
         
         
@@ -111,10 +282,30 @@ class NoteDetailViewController: UIViewController {
             }
         }
         
+        if let image = self.selectedImageView.image{
+            noteItem.photo = image.jpegData(compressionQuality: 0.8)
+            
+        }
+        
+        if !self.filename.isEmpty{
+            noteItem.audio = self.filename
+        }
+        
+        if let loc = self.location{
+           
+            noteItem.latitude = loc.location?.coordinate.latitude ?? 0.0
+            noteItem.longitude = loc.location?.coordinate.longitude ?? 0.0
+            noteItem.address = loc.fullAddress
+            
+        }
+        if self.id.isEmpty{
+            noteItem.id = "\(Date().unixTimestamp)_id"
+        }else{
+            noteItem.id = self.id
+        }
        
+        noteItem.time = Double(Date().localDate().unixTimestamp)/1000
         
-        
-      
        
         if let note = self.note{
             //self.note = noteItem
@@ -133,6 +324,9 @@ class NoteDetailViewController: UIViewController {
         
         
     }
+    
+   
+    
     
     func openCamera(){
         if(UIImagePickerController .isSourceTypeAvailable(.camera))
@@ -155,27 +349,82 @@ class NoteDetailViewController: UIViewController {
         self.present(imagePicker, animated: true, completion: nil)
     }
     
-    func display_alert(msg_title : String , msg_desc : String ,action_title : String){
-        let ac = UIAlertController(title: msg_title, message: msg_desc, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: action_title, style: .default)
-        {
-            (result : UIAlertAction) -> Void in
-           // _ = self.navigationController?.popViewController(animated: true)
-        })
-        present(ac, animated: true)
+    @IBAction func addPhotosButtonTapped(_ button: UIButton) {
+        
+        
+        let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+            self.openCamera()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in
+            self.openGallary()
+        }))
+        
+        alert.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil))
+        
+        /*If you want work actionsheet on ipad
+         then you have to use popoverPresentationController to present the actionsheet,
+         otherwise app will crash on iPad */
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            alert.popoverPresentationController?.sourceView = button
+            alert.popoverPresentationController?.sourceRect = button.bounds
+            alert.popoverPresentationController?.permittedArrowDirections = .up
+        default:
+            break
+        }
+        
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
-    func getDocumentsDirectory() -> URL{
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentsDirectory = paths[0]
-        return documentsDirectory
+    @IBAction func addVoiceNoteButtonTapped(_ button: UIButton) {
+        if(isRecording){
+            finishAudioRecording(success: true)
+            record_btn_ref.setTitle(" Record", for: .normal)
+            play_btn_ref.isEnabled = true
+            isRecording = false
+        }else{
+            filename = "\(Date().unixTimestamp)_audio.m4a"
+            setup_recorder()
+            
+            audioRecorder.record()
+            meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
+            record_btn_ref.setTitle(" Stop", for: .normal)
+            play_btn_ref.isEnabled = false
+            isRecording = true
+        }
+        
     }
     
-    func getFileUrl() -> URL{
-        let filePath = getDocumentsDirectory().appendingPathComponent(self.filename)
-        return filePath
+    @IBAction func playAudio(_ button: UIButton) {
+        
     }
+    
+}
 
+
+extension NoteDetailViewController : AVAudioRecorderDelegate, AVAudioPlayerDelegate{
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool)
+    {
+        if !flag{
+            finishAudioRecording(success: false)
+        }
+        play_btn_ref.isEnabled = true
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool)
+    {
+        record_btn_ref.isEnabled = true
+    }
+}
+
+
+extension Date {
+    var unixTimestamp: Int64 {
+        return Int64(self.timeIntervalSince1970 * 1_000)
+    }
 }
 
 

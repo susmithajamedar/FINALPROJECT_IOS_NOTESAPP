@@ -451,4 +451,3 @@ extension NoteDetailViewController:  UIImagePickerControllerDelegate, UINavigati
         self.dismiss(animated: true, completion: nil)
     }
 }
-

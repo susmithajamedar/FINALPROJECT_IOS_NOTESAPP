@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		D08972BB265F4D4100530A90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08972BA265F4D4100530A90 /* AppDelegate.swift */; };
 		D08972BD265F4D4100530A90 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08972BC265F4D4100530A90 /* SceneDelegate.swift */; };
-		D08972BF265F4D4100530A90 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08972BE265F4D4100530A90 /* ViewController.swift */; };
 		D08972C2265F4D4100530A90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D08972C0265F4D4100530A90 /* Main.storyboard */; };
 		D08972C5265F4D4100530A90 /* note_avengers_iOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D08972C3265F4D4100530A90 /* note_avengers_iOS.xcdatamodeld */; };
 		D08972C7265F4D4100530A90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D08972C6265F4D4100530A90 /* Assets.xcassets */; };
@@ -17,13 +16,15 @@
 		D0AF92B5265F51AF0097EFB3 /* NotesItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF92B3265F51AF0097EFB3 /* NotesItem+CoreDataClass.swift */; };
 		D0AF92B6265F51AF0097EFB3 /* NotesItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF92B4265F51AF0097EFB3 /* NotesItem+CoreDataProperties.swift */; };
 		D0AF92B8265F52900097EFB3 /* NotesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF92B7265F52900097EFB3 /* NotesListViewController.swift */; };
+		D0D620EC2660CDDE0006B8A8 /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D620EB2660CDDE0006B8A8 /* LocationPickerViewController.swift */; };
+		D0D620EE2660CE360006B8A8 /* NoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D620ED2660CE360006B8A8 /* NoteDetailViewController.swift */; };
+		D0D620F02660CEC80006B8A8 /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D620EF2660CEC80006B8A8 /* NoteTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D08972B7265F4D4100530A90 /* note_avengers_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = note_avengers_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D08972BA265F4D4100530A90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D08972BC265F4D4100530A90 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D08972BE265F4D4100530A90 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D08972C1265F4D4100530A90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D08972C4265F4D4100530A90 /* note_avengers_iOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = note_avengers_iOS.xcdatamodel; sourceTree = "<group>"; };
 		D08972C6265F4D4100530A90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -32,6 +33,9 @@
 		D0AF92B3265F51AF0097EFB3 /* NotesItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		D0AF92B4265F51AF0097EFB3 /* NotesItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotesItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D0AF92B7265F52900097EFB3 /* NotesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesListViewController.swift; sourceTree = "<group>"; };
+		D0D620EB2660CDDE0006B8A8 /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
+		D0D620ED2660CE360006B8A8 /* NoteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailViewController.swift; sourceTree = "<group>"; };
+		D0D620EF2660CEC80006B8A8 /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,13 +72,15 @@
 			children = (
 				D08972BA265F4D4100530A90 /* AppDelegate.swift */,
 				D08972BC265F4D4100530A90 /* SceneDelegate.swift */,
-				D08972BE265F4D4100530A90 /* ViewController.swift */,
 				D08972C0265F4D4100530A90 /* Main.storyboard */,
 				D08972C6265F4D4100530A90 /* Assets.xcassets */,
 				D08972C8265F4D4100530A90 /* LaunchScreen.storyboard */,
 				D08972CB265F4D4100530A90 /* Info.plist */,
 				D08972C3265F4D4100530A90 /* note_avengers_iOS.xcdatamodeld */,
 				D0AF92B7265F52900097EFB3 /* NotesListViewController.swift */,
+				D0D620EB2660CDDE0006B8A8 /* LocationPickerViewController.swift */,
+				D0D620ED2660CE360006B8A8 /* NoteDetailViewController.swift */,
+				D0D620EF2660CEC80006B8A8 /* NoteTableViewCell.swift */,
 			);
 			path = note_avengers_iOS;
 			sourceTree = "<group>";
@@ -150,9 +156,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D08972C5265F4D4100530A90 /* note_avengers_iOS.xcdatamodeld in Sources */,
-				D08972BF265F4D4100530A90 /* ViewController.swift in Sources */,
+				D0D620EE2660CE360006B8A8 /* NoteDetailViewController.swift in Sources */,
+				D0D620EC2660CDDE0006B8A8 /* LocationPickerViewController.swift in Sources */,
 				D08972BB265F4D4100530A90 /* AppDelegate.swift in Sources */,
 				D0AF92B5265F51AF0097EFB3 /* NotesItem+CoreDataClass.swift in Sources */,
+				D0D620F02660CEC80006B8A8 /* NoteTableViewCell.swift in Sources */,
 				D0AF92B6265F51AF0097EFB3 /* NotesItem+CoreDataProperties.swift in Sources */,
 				D08972BD265F4D4100530A90 /* SceneDelegate.swift in Sources */,
 				D0AF92B8265F52900097EFB3 /* NotesListViewController.swift in Sources */,

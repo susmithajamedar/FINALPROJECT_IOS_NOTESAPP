@@ -6,6 +6,13 @@
 //
 
 import UIKit
+import CoreLocation
+struct Location {
+    var fullAddress: String?
+    var location: CLLocation?
+    
+}
+var locationPicked:((Location)->())?
 
 class NoteDetailViewController: UIViewController {
 

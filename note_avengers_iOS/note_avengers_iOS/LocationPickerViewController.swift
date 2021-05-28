@@ -9,15 +9,18 @@ import UIKit
 import MapKit
 class LocationPickerViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var addressLabel: UILabel!
+    let newPin = MKPointAnnotation()
     var locationManager =  CLLocationManager()
+    @IBOutlet weak var addressLabel: UILabel!
+    
+    var currentLocation: CLLocation?
+    var savedLocation : Location?
     override func viewDidLoad() {
         super.viewDidLoad()
         determineCurrentLocation()
         // Do any additional setup after loading the view.
     }
     
-    var currentLocation: CLLocation?
     func determineCurrentLocation(){
         locationManager = CLLocationManager()
         locationManager.delegate = self
@@ -83,6 +86,35 @@ class LocationPickerViewController: UIViewController {
 }
 
 
-extension  LocationPickerViewController : MKMapViewDelegate, CLLocationManagerDelegate{
+extension  LocationPickerViewController : MKMapViewDelegate,CLLocationManagerDelegate{
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        mapView.removeAnnotation(newPin)
+        let location = locations.last! as CLLocation
+        self.getAddress(location: location) { (address) in
+            self.addressLabel.text = address
+            
+            print(address)
+        }
+        
+        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        
+        
+        mapView.setRegion(region, animated: true)
+        
+       
+        if let loc = savedLocation{
+            if let coordinate = loc.location?.coordinate{
+                newPin.coordinate = coordinate
+            }
+            self.addressLabel.text = loc.fullAddress ?? ""
+            
+        }else{
+            newPin.coordinate = location.coordinate
+        }
+        mapView.addAnnotation(newPin)
+    }
     
+   
+
 }

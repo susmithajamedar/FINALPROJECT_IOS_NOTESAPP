@@ -20,7 +20,14 @@ class NoteDetailViewController: UIViewController {
     @IBOutlet weak var subtitleLabel: UITextField!
     @IBOutlet weak var noteBodyTextView: UITextView!
     @IBOutlet weak var locationButton: UIButton!
+    @IBOutlet weak var recordButton: UIButton!
+    @IBOutlet weak var selectedImageView: UIImageView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    @IBOutlet var recordingTimeLabel: UILabel!
+    @IBOutlet var record_btn_ref: UIButton!
+    @IBOutlet var play_btn_ref: UIButton!
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     var note : NotesItem?
@@ -29,6 +36,7 @@ class NoteDetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+  
     
 
     @IBAction func addLocationButtonTapped(_ button: UIButton) {
